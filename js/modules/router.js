@@ -25,6 +25,8 @@ function desenhar() {
 
   // 2. atualiza título da aba, menu e fecha o menu mobile
   document.title = `${rota.titulo} | Livro Livre`;
+    const anuncio = document.getElementById('anuncio-rota');
+  if (anuncio) anuncio.textContent = `Página carregada: ${rota.titulo}`;
   marcarMenu(rotas[nome] ? nome : '');
   fecharMenu();
 
