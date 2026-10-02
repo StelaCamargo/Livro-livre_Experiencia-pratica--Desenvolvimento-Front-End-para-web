@@ -1,0 +1,22 @@
+/* =========================================================
+   reset.css — normaliza o comportamento padrão dos navegadores
+   (carregado antes do estilo.css)
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body, h1, h2, h3, p, figure, blockquote, ul, ol { margin: 0; }
+
+ul[class], ol[class] { padding: 0; }
+
+img, picture { max-width: 100%; height: auto; display: block; }
+
+input, button, select, textarea { font: inherit; }
+
+button { cursor: pointer; }
+
+[hidden] { display: none !important; }
