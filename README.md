@@ -25,20 +25,53 @@ Projeto desenvolvido nas Experiências Práticas da disciplina de **Desenvolvime
 - HTML5 semântico
 - CSS3 (variáveis, Grid de 12 colunas, Flexbox, media queries)
 - JavaScript (ES6 Modules, sem frameworks)
-- [Chart.js](https://www.chartjs.org/) via CDN
+- [Chart.js](https://www.chartjs.org/) 4.4.1 via CDN
 - Git e GitHub, com publicação pelo GitHub Pages
 
-## Como rodar localmente
+## Pré-requisitos
 
-O JavaScript usa ES Modules (`import`/`export`), então o site precisa ser aberto por um servidor local. Abrir o arquivo com dois cliques não funciona por segurança do navegador.
+- Um navegador atualizado (Chrome, Edge, Firefox ou Safari).
+- [Git](https://git-scm.com/) para clonar o repositório.
+- [VS Code](https://code.visualstudio.com/) com a extensão **Live Server** (ou qualquer outro servidor local).
+- Conexão com a internet para carregar o Chart.js pelo CDN. Sem internet, o site funciona normalmente e só o gráfico fica escondido.
+
+## Instalação
+
+O projeto **não tem dependências para instalar** (não usa npm). A única biblioteca externa, o Chart.js, é carregada por CDN.
 
 1. Clone o repositório:
    ```
    git clone https://github.com/StelaCamargo/Livro-livre_Experiencia-pratica--Desenvolvimento-Front-End-para-web.git
    ```
 2. Abra a pasta no **VS Code**.
-3. Instale a extensão **Live Server**.
-4. Clique com o botão direito em `index.html` e escolha **Open with Live Server**.
+
+## Como executar
+
+O JavaScript usa ES Modules (`import`/`export`), então o site precisa ser aberto por um servidor local. Abrir o arquivo com dois cliques não funciona por segurança do navegador.
+
+1. Clique com o botão direito em `index.html` (na raiz).
+2. Escolha **Open with Live Server**.
+3. O site abre no navegador e redireciona para `html/index.html`.
+
+## Build para produção
+
+Não há etapa de build obrigatória. Para deixar o site mais leve em produção:
+
+- `css/reset.css` e `css/estilo.css` foram juntados e **minificados** em `css/estilo.min.css` (de 28 KB para 21 KB). É esse arquivo que o `html/index.html` carrega.
+- A imagem principal (`imagens/biblioteca.jpg`) foi **comprimida** (de 210 KB para 173 KB).
+
+Ao editar o CSS, altere sempre `reset.css` ou `estilo.css` (arquivos legíveis) e gere de novo o `estilo.min.css`, juntando os dois arquivos em um minificador de CSS.
+
+## Testes
+
+O projeto não tem testes automatizados. Antes de cada versão, é feito este roteiro de **testes manuais** no navegador, com o DevTools (F12):
+
+- Navegação por todas as rotas, botões voltar/avançar e página 404.
+- Formulário com dados inválidos (CPF, e-mail, telefone, idade) e com dados válidos.
+- Cadastro salvo no localStorage, lista de voluntários e remoção.
+- Layout no modo celular (Ctrl + Shift + M) e no desktop.
+- Uso só com teclado (Tab, Enter, Esc) e console sem erros.
+- Site sem internet (aba Network → Offline): o gráfico é escondido e o resto funciona.
 
 ## Estrutura de pastas
 
@@ -48,9 +81,10 @@ O JavaScript usa ES Modules (`import`/`export`), então o site precisa ser abert
 │   └── index.html      → única página da SPA (cabeçalho, <main> e rodapé)
 ├── css/
 │   ├── reset.css       → normalização entre navegadores
-│   └── estilo.css      → design system, grid, componentes e responsividade
+│   ├── estilo.css      → design system, grid, componentes e responsividade
+│   └── estilo.min.css  → reset.css + estilo.css minificados (usado em produção)
 ├── imagens/
-│   ├── biblioteca.jpg  → imagem usada no site
+│   ├── biblioteca.jpg  → imagem usada no site (comprimida)
 │   └── biblioteca.png  → cópia em alta qualidade
 └── js/
     ├── main.js         → ponto de entrada: rotas e inicialização
@@ -88,7 +122,7 @@ O projeto segue as diretrizes da **WCAG 2.1, nível AA**:
 - `feature/...` → cada nova funcionalidade, criada a partir da `develop`.
 - `hotfix/...` → correções urgentes, criadas a partir da `main`.
 
-As mensagens de commit seguem o padrão **Conventional Commits** (`feat:`, `fix:`, `style:`, `docs:`).
+As mensagens de commit seguem o padrão **Conventional Commits** (`feat:`, `fix:`, `style:`, `docs:`, `perf:`). As versões seguem o **versionamento semântico** e são marcadas com tags (`v1.0.0`, `v1.1.0`...).
 
 ## Autora
 
