@@ -1,7 +1,25 @@
-/* grafico.js — integração com a biblioteca externa Chart.js (carregada via CDN no index.html).
-   O Chart.js fica isolado neste módulo: o resto da aplicação só chama desenharGrafico(). */
+/* grafico.js — integração com a biblioteca externa Chart.js (CDN).
+   O Chart.js fica isolado neste módulo: o resto da aplicação só chama desenharGrafico().
+   Performance: a biblioteca só é baixada quando a página de Projetos é aberta (lazy loading). */
 
+const URL_CHART = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
 let graficoAtual = null;
+let carregando = null;
+
+/* injeta o <script> do Chart.js uma única vez e devolve uma Promise */
+function carregarChart() {
+  if (window.Chart) return Promise.resolve(window.Chart);
+  if (!carregando) {
+    carregando = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = URL_CHART;
+      script.onload = () => resolve(window.Chart);
+      script.onerror = () => { carregando = null; reject(new Error('Chart.js não carregou')); };
+      document.head.appendChild(script);
+    });
+  }
+  return carregando;
+}
 
 const numero = (texto) => Number(String(texto).replace(/\./g, '')); // "4.200" -> 4200
 
@@ -32,12 +50,17 @@ export function atualizarCoresGrafico() {
   graficoAtual.update();
 }
 
-export function desenharGrafico(canvas, projetos) {
-  // se o CDN não carregar (sem internet, bloqueio), o site segue funcionando sem o gráfico
-  if (!canvas || typeof window.Chart === 'undefined') {
-    if (canvas) canvas.closest('figure').hidden = true;
+export async function desenharGrafico(canvas, projetos) {
+  if (!canvas) return null;
+  try {
+    await carregarChart();
+  } catch (erro) {
+    // se o CDN não carregar (sem internet, bloqueio), o site segue funcionando sem o gráfico
+    canvas.closest('figure').hidden = true;
     return null;
   }
+  // a pessoa pode ter trocado de página enquanto a biblioteca baixava
+  if (!canvas.isConnected) return null;
 
   // destrói o gráfico anterior antes de criar outro (evita acumular instâncias ao trocar de tela)
   if (graficoAtual) graficoAtual.destroy();
