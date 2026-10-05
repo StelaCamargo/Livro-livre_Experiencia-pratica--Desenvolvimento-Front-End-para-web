@@ -59,7 +59,7 @@ O JavaScript usa ES Modules (`import`/`export`), então o site precisa ser abert
 Não há etapa de build obrigatória. Para deixar o site mais leve em produção:
 
 - `css/reset.css` e `css/estilo.css` foram juntados e **minificados** em `css/estilo.min.css` (de 28 KB para 21 KB). É esse arquivo que o `html/index.html` carrega.
-- A imagem principal (`imagens/biblioteca.jpg`) foi **comprimida** (de 210 KB para 173 KB).
+- A imagem principal foi **comprimida** (de 210 KB para 173 KB) e convertida para **WebP**, em dois tamanhos (600 px com 46 KB e 1200 px com 136 KB). O `<picture>` com `srcset` e `sizes` deixa o navegador escolher o arquivo certo para a tela, e o JPG fica como reserva.
 
 Ao editar o CSS, altere sempre `reset.css` ou `estilo.css` (arquivos legíveis) e gere de novo o `estilo.min.css`, juntando os dois arquivos em um minificador de CSS.
 
@@ -85,8 +85,9 @@ O projeto não tem testes automatizados. Antes de cada versão, é feito este ro
 │   ├── estilo.css      → design system, grid, componentes e responsividade
 │   └── estilo.min.css  → reset.css + estilo.css minificados (usado em produção)
 ├── imagens/
-│   ├── biblioteca.jpg  → imagem usada no site (comprimida)
-│   └── biblioteca.png  → cópia em alta qualidade
+│   ├── biblioteca.webp / biblioteca-600.webp → versões WebP (1200 e 600 px) usadas no site
+│   ├── biblioteca.jpg / biblioteca-600.jpg   → reserva em JPG para navegadores sem WebP
+│   └── biblioteca.png  → original em alta qualidade (não é carregado pelo site)
 └── js/
     ├── main.js         → ponto de entrada: rotas e inicialização
     └── modules/
