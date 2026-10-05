@@ -19,6 +19,7 @@ Projeto desenvolvido nas Experiências Práticas da disciplina de **Desenvolvime
 - **Gráfico de resultados** com a biblioteca Chart.js.
 - **Componentes de feedback:** alertas, badges, toast e modal.
 - **Layout responsivo** (mobile-first) com menu hambúrguer e submenu.
+- **Modo escuro e alto contraste**, com a escolha salva no navegador.
 
 ## Tecnologias
 
@@ -98,6 +99,7 @@ O projeto não tem testes automatizados. Antes de cada versão, é feito este ro
         ├── projetos.js      → filtros e gráfico
         ├── voluntarios.js   → lista de voluntários
         ├── grafico.js       → integração com o Chart.js
+        ├── tema.js          → modos de cor (claro, escuro, alto contraste)
         └── ui.js            → menu, toast, modal e utilitários
 ```
 
@@ -114,6 +116,7 @@ O projeto segue as diretrizes da **WCAG 2.1, nível AA**:
 - Menu com `aria-expanded` e página atual marcada com `aria-current`.
 - Troca de página anunciada para leitores de tela (`aria-live`) e foco levado ao título da nova tela.
 - Respeito à preferência de reduzir animações (`prefers-reduced-motion`).
+- **Temas de cor:** claro, escuro e alto contraste, escolhidos no rodapé ("Tema de cores"). No modo automático, o site segue o sistema (`prefers-color-scheme` e `prefers-contrast`). A escolha fica salva no localStorage.
 
 ## Fluxo de trabalho (GitFlow)
 
@@ -126,5 +129,5 @@ As mensagens de commit seguem o padrão **Conventional Commits** (`feat:`, `fix:
 
 ## Autora
 
-**Stela de Camargo dos Santos Cruz**
+**Stela de Camargo dos Santos**
 Análise e Desenvolvimento de Sistemas

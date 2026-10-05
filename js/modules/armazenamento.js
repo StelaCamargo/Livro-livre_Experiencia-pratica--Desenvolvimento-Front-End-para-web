@@ -3,6 +3,7 @@
 
 const CHAVE_VOLUNTARIOS = 'livroLivre:voluntarios';
 const CHAVE_RASCUNHO = 'livroLivre:rascunho';
+const CHAVE_TEMA = 'livroLivre:tema';
 
 // leitura segura: se o dado estiver corrompido ou o navegador bloquear, devolve o padrão
 function ler(chave, padrao) {
@@ -66,4 +67,13 @@ export function salvarRascunho(dados) {
 
 export function apagarRascunho() {
   try { localStorage.removeItem(CHAVE_RASCUNHO); } catch (e) { /* ignora */ }
+}
+
+/* ---- tema de cores escolhido (auto, claro, escuro ou alto-contraste) ---- */
+export function lerTema() {
+  return ler(CHAVE_TEMA, 'auto');
+}
+
+export function salvarTema(tema) {
+  gravar(CHAVE_TEMA, tema);
 }

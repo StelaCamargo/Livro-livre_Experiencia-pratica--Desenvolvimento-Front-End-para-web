@@ -6,7 +6,15 @@
 <title>Livro Livre | Bibliotecas comunitárias e incentivo à leitura</title>
 <meta name="description" content="ONG que abre bibliotecas comunitárias e rodas de leitura em bairros sem acesso a livros. Seja voluntário ou doe.">
 <meta name="theme-color" content="#1b2a6b">
-<script>document.documentElement.classList.add('js');</script>
+<meta name="color-scheme" content="light dark">
+<script>
+  document.documentElement.classList.add('js');
+  // aplica o tema salvo antes de desenhar a página (evita "piscar" o tema claro)
+  try {
+    var tema = JSON.parse(localStorage.getItem('livroLivre:tema'));
+    if (tema && tema !== 'auto') document.documentElement.dataset.tema = tema;
+  } catch (e) {}
+</script>
 <!-- produção: reset.css + estilo.css minificados em um arquivo só (fontes legíveis continuam na pasta css) -->
 <link rel="stylesheet" href="../css/estilo.min.css">
 <!-- biblioteca externa: Chart.js via CDN (precisa vir antes do main.js) -->
@@ -38,9 +46,9 @@
 </header>
 
 <!-- o roteador (js/modules/router.js) desenha cada "página" aqui dentro -->
-
 <!-- avisa leitores de tela quando a "página" da SPA muda -->
 <p id="anuncio-rota" class="visualmente-oculto" aria-live="polite"></p>
+
 <main id="conteudo" tabindex="-1">
   <noscript><p class="alerta alerta--aviso"><strong class="alerta__titulo">Ative o JavaScript</strong><small class="alerta__texto">Este site precisa de JavaScript para funcionar.</small></p></noscript>
 </main>
@@ -49,6 +57,15 @@
   <p>Associação Livro Livre &middot; CNPJ 00.000.000/0001-00 (fictício)</p>
   <p>Rua das Letras, 45, São Paulo/SP &middot; <a href="mailto:oi@livrolivre.example">oi@livrolivre.example</a></p>
   <p><a href="#/componentes">Guia de componentes</a></p>
+  <p class="tema">
+    <label for="seletor-tema">Tema de cores</label>
+    <select id="seletor-tema">
+      <option value="auto">Automático (do sistema)</option>
+      <option value="claro">Claro</option>
+      <option value="escuro">Escuro</option>
+      <option value="alto-contraste">Alto contraste</option>
+    </select>
+  </p>
 </footer>
 
 <!-- modal reutilizável, preenchido pelo js/modules/ui.js -->
