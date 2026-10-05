@@ -4,6 +4,7 @@
 import { iniciarRouter } from './modules/router.js';
 import { iniciarMenu, iniciarLinkPular, mostrarToast, abrirModal } from './modules/ui.js';
 import { listarVoluntarios } from './modules/armazenamento.js';
+import { iniciarTema } from './modules/tema.js';
 import {
   paginaInicio, paginaProjetos, paginaCadastro,
   paginaVoluntarios, paginaComponentes, paginaNaoEncontrada
@@ -33,6 +34,7 @@ const rotas = {
   404:         { titulo: 'Página não encontrada', template: paginaNaoEncontrada }
 };
 
+iniciarTema();
 iniciarMenu();
 iniciarLinkPular();
 iniciarRouter(rotas);
