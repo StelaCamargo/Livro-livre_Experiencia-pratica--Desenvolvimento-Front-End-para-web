@@ -57,7 +57,17 @@ export function paginaInicio() {
         <p><a class="btn" href="#/cadastro">Quero ser voluntário</a></p>
       </header>
       <figure class="hero__figura">
-        <img src="../imagens/biblioteca.jpg" width="1200" height="799" alt="Duas pessoas escolhendo livros em uma estante comunitária cheia de livros coloridos">
+        <!-- WebP para quem suporta, JPG como reserva; o navegador escolhe o tamanho pela largura da tela -->
+        <picture>
+          <source type="image/webp"
+            srcset="../imagens/biblioteca-600.webp 600w, ../imagens/biblioteca.webp 1200w"
+            sizes="(min-width: 1536px) 560px, (min-width: 768px) 40vw, 100vw">
+          <img src="../imagens/biblioteca.jpg"
+            srcset="../imagens/biblioteca-600.jpg 600w, ../imagens/biblioteca.jpg 1200w"
+            sizes="(min-width: 1536px) 560px, (min-width: 768px) 40vw, 100vw"
+            width="1200" height="799" fetchpriority="high" decoding="async"
+            alt="Duas pessoas escolhendo livros em uma estante comunitária cheia de livros coloridos">
+        </picture>
       </figure>
     </section>
 
