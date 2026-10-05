@@ -320,6 +320,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 main {
   flex: 1;
+  min-height: 100vh;   /* reserva a tela enquanto o JS desenha a página: o rodapé não "pula" (CLS) */
   width: 100%;
   max-width: var(--largura-max);
   margin: 0 auto;

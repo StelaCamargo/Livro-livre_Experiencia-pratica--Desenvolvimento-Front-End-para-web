@@ -17,10 +17,24 @@
 </script>
 <!-- produção: reset.css + estilo.css minificados em um arquivo só (fontes legíveis continuam na pasta css) -->
 <link rel="stylesheet" href="../css/estilo.min.css">
-<!-- biblioteca externa: Chart.js via CDN (precisa vir antes do main.js) -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
 <!-- ponto de entrada da SPA (ES Modules) -->
 <script type="module" src="../js/main.js"></script>
+<!-- performance: o navegador baixa todos os módulos ao mesmo tempo, em vez de um depois do outro -->
+<link rel="modulepreload" href="../js/modules/router.js">
+<link rel="modulepreload" href="../js/modules/ui.js">
+<link rel="modulepreload" href="../js/modules/armazenamento.js">
+<link rel="modulepreload" href="../js/modules/tema.js">
+<link rel="modulepreload" href="../js/modules/grafico.js">
+<link rel="modulepreload" href="../js/modules/templates.js">
+<link rel="modulepreload" href="../js/modules/dados.js">
+<link rel="modulepreload" href="../js/modules/projetos.js">
+<link rel="modulepreload" href="../js/modules/formulario.js">
+<link rel="modulepreload" href="../js/modules/validacao.js">
+<link rel="modulepreload" href="../js/modules/voluntarios.js">
+<!-- performance: começa a baixar a foto principal antes do JavaScript desenhar a página (melhora o LCP) -->
+<link rel="preload" as="image" type="image/webp" fetchpriority="high"
+  imagesrcset="../imagens/biblioteca-600.webp 600w, ../imagens/biblioteca.webp 1200w"
+  imagesizes="(min-width: 1536px) 560px, (min-width: 768px) 40vw, 100vw">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>

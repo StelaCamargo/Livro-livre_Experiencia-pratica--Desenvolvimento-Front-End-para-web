@@ -34,7 +34,7 @@ Projeto desenvolvido nas Experiências Práticas da disciplina de **Desenvolvime
 - Um navegador atualizado (Chrome, Edge, Firefox ou Safari).
 - [Git](https://git-scm.com/) para clonar o repositório.
 - [VS Code](https://code.visualstudio.com/) com a extensão **Live Server** (ou qualquer outro servidor local).
-- Conexão com a internet para carregar o Chart.js pelo CDN. Sem internet, o site funciona normalmente e só o gráfico fica escondido.
+- Conexão com a internet para carregar o Chart.js pelo CDN (só na página de Projetos). Sem internet, o site funciona normalmente e só o gráfico fica escondido.
 
 ## Instalação
 
@@ -60,6 +60,10 @@ Não há etapa de build obrigatória. Para deixar o site mais leve em produção
 
 - `css/reset.css` e `css/estilo.css` foram juntados e **minificados** em `css/estilo.min.css` (de 28 KB para 21 KB). É esse arquivo que o `html/index.html` carrega.
 - A imagem principal foi **comprimida** (de 210 KB para 173 KB) e convertida para **WebP**, em dois tamanhos (600 px com 46 KB e 1200 px com 136 KB). O `<picture>` com `srcset` e `sizes` deixa o navegador escolher o arquivo certo para a tela, e o JPG fica como reserva.
+
+- O **Chart.js só é baixado quando a página de Projetos é aberta** (lazy loading), em vez de em todas as páginas.
+- Os módulos JavaScript usam `modulepreload` e são baixados todos ao mesmo tempo, e a foto principal tem `preload`.
+- O `<main>` reserva a altura da tela enquanto o JavaScript desenha a página, evitando que o rodapé "pule" (CLS).
 
 Ao editar o CSS, altere sempre `reset.css` ou `estilo.css` (arquivos legíveis) e gere de novo o `estilo.min.css`, juntando os dois arquivos em um minificador de CSS.
 
