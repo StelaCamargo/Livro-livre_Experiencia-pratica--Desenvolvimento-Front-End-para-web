@@ -2,6 +2,7 @@
    Livro Livre — folha de estilo principal (o reset fica em reset.css)
    Organização (ITCSS simplificado + nomes no padrão BEM):
    1. Tokens (variáveis do sistema de design)
+   1b. Temas de cor (claro, escuro e alto contraste)
    2. Base (reset e elementos HTML)
    3. Layout (topo, conteúdo, rodapé)
    4. Componentes (botão, menu, hero, cards, números, formulário)
@@ -30,6 +31,15 @@
   --cor-aviso: #7a5600;
   --cor-aviso-fundo: #fff4d6;
   --cor-info-fundo: #e3e9f7;
+  /* tokens de papel (criados para os temas): cada cor diz ONDE é usada */
+  --cor-marca-fundo: #1b2a6b;    /* faixas escuras: topo, números, depoimento */
+  --cor-rodape-fundo: #14181f;
+  --cor-sobre-cor: #fff;         /* texto/ícone em cima de cor forte */
+  --cor-sobre-destaque: #14181f; /* texto em cima do amarelo */
+  --cor-campo-erro-fundo: #fff6f6;
+  --cor-placeholder: #6b7590;
+  --largura-foco: 3px;
+  color-scheme: light;
 
   /* Tipografia */
   --fonte-texto: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -66,6 +76,165 @@
   --transicao: .2s ease;
 }
 
+
+/* ---------- 1b. TEMAS DE COR ----------
+   Só os tokens mudam; os componentes continuam iguais.
+   Ordem de prioridade: escolha do usuário (data-tema no <html>, salva no localStorage)
+   > preferência do sistema (prefers-color-scheme / prefers-contrast) > tema claro.
+   Todos os pares texto/fundo foram conferidos com no mínimo 4.5:1. */
+
+/* Tema escuro */
+:root[data-tema="escuro"] {
+  --cor-primaria: #a8b6ff;
+  --cor-primaria-clara: #8b9cf0;
+  --cor-destaque: #ffc93c;
+  --cor-destaque-escura: #c99208;
+  --cor-texto: #e9edf5;
+  --cor-texto-suave: #b3bcd1;
+  --cor-fundo: #11141b;
+  --cor-superficie: #1a1f2b;
+  --cor-superficie-suave: #262d42;
+  --cor-borda: #8792ad;
+  --cor-erro: #ff8f95;
+  --cor-sucesso: #74d69a;
+  --cor-aviso: #ffd36b;
+  --cor-erro-fundo: #3a1a1e;
+  --cor-sucesso-fundo: #13301f;
+  --cor-aviso-fundo: #352a0c;
+  --cor-info-fundo: #1f2740;
+  --cor-marca-fundo: #141f55;
+  --cor-rodape-fundo: #090b10;
+  --cor-sobre-cor: #11141b;
+  --cor-campo-erro-fundo: #2c1719;
+  --cor-placeholder: #8f99b3;
+  --sombra-p: 0 1px 3px rgb(0 0 0 / .5);
+  --sombra-m: 0 6px 18px rgb(0 0 0 / .45);
+  --sombra-g: 0 14px 32px rgb(0 0 0 / .55);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema]) {
+  --cor-primaria: #a8b6ff;
+  --cor-primaria-clara: #8b9cf0;
+  --cor-destaque: #ffc93c;
+  --cor-destaque-escura: #c99208;
+  --cor-texto: #e9edf5;
+  --cor-texto-suave: #b3bcd1;
+  --cor-fundo: #11141b;
+  --cor-superficie: #1a1f2b;
+  --cor-superficie-suave: #262d42;
+  --cor-borda: #8792ad;
+  --cor-erro: #ff8f95;
+  --cor-sucesso: #74d69a;
+  --cor-aviso: #ffd36b;
+  --cor-erro-fundo: #3a1a1e;
+  --cor-sucesso-fundo: #13301f;
+  --cor-aviso-fundo: #352a0c;
+  --cor-info-fundo: #1f2740;
+  --cor-marca-fundo: #141f55;
+  --cor-rodape-fundo: #090b10;
+  --cor-sobre-cor: #11141b;
+  --cor-campo-erro-fundo: #2c1719;
+  --cor-placeholder: #8f99b3;
+  --sombra-p: 0 1px 3px rgb(0 0 0 / .5);
+  --sombra-m: 0 6px 18px rgb(0 0 0 / .45);
+  --sombra-g: 0 14px 32px rgb(0 0 0 / .55);
+  color-scheme: dark;
+  }
+}
+
+/* Tema de alto contraste (fundo preto, texto branco, links e foco em amarelo) */
+:root[data-tema="alto-contraste"] {
+  --cor-primaria: #ffee00;
+  --cor-primaria-clara: #ffffff;
+  --cor-destaque: #ffee00;
+  --cor-destaque-escura: #ffffff;
+  --cor-texto: #ffffff;
+  --cor-texto-suave: #ffffff;
+  --cor-fundo: #000000;
+  --cor-superficie: #000000;
+  --cor-superficie-suave: #1f1f1f;
+  --cor-borda: #ffffff;
+  --cor-erro: #ff8080;
+  --cor-sucesso: #66ff8c;
+  --cor-aviso: #ffee00;
+  --cor-erro-fundo: #000000;
+  --cor-sucesso-fundo: #000000;
+  --cor-aviso-fundo: #000000;
+  --cor-info-fundo: #000000;
+  --cor-marca-fundo: #000000;
+  --cor-rodape-fundo: #000000;
+  --cor-sobre-cor: #000000;
+  --cor-sobre-destaque: #000000;
+  --cor-campo-erro-fundo: #000000;
+  --cor-placeholder: #cccccc;
+  --sombra-p: none;
+  --sombra-m: none;
+  --sombra-g: none;
+  --largura-foco: 4px;
+  color-scheme: dark;
+}
+@media (prefers-contrast: more) {
+  :root:not([data-tema]) {
+  --cor-primaria: #ffee00;
+  --cor-primaria-clara: #ffffff;
+  --cor-destaque: #ffee00;
+  --cor-destaque-escura: #ffffff;
+  --cor-texto: #ffffff;
+  --cor-texto-suave: #ffffff;
+  --cor-fundo: #000000;
+  --cor-superficie: #000000;
+  --cor-superficie-suave: #1f1f1f;
+  --cor-borda: #ffffff;
+  --cor-erro: #ff8080;
+  --cor-sucesso: #66ff8c;
+  --cor-aviso: #ffee00;
+  --cor-erro-fundo: #000000;
+  --cor-sucesso-fundo: #000000;
+  --cor-aviso-fundo: #000000;
+  --cor-info-fundo: #000000;
+  --cor-marca-fundo: #000000;
+  --cor-rodape-fundo: #000000;
+  --cor-sobre-cor: #000000;
+  --cor-sobre-destaque: #000000;
+  --cor-campo-erro-fundo: #000000;
+  --cor-placeholder: #cccccc;
+  --sombra-p: none;
+  --sombra-m: none;
+  --sombra-g: none;
+  --largura-foco: 4px;
+  color-scheme: dark;
+  }
+}
+
+/* ajustes extras do alto contraste: a forma não depende só da cor */
+:root[data-tema="alto-contraste"] a { text-decoration-thickness: 2px; }
+:root[data-tema="alto-contraste"] :is(.card, .form, .alerta, .opcao, .filtro, .campo input, .campo select, .campo textarea, .numeros__item, .depoimento, .toast, .modal, .submenu) {
+  border-width: 2px;   /* só a espessura: a cor continua vindo do estado (erro em vermelho, válido em verde) */
+  border-style: solid;
+}
+:root[data-tema="alto-contraste"] .filtro[aria-pressed="true"] { background: var(--cor-destaque); color: #000; }
+:root[data-tema="alto-contraste"] .topo { border-bottom: 2px solid var(--cor-borda); }
+@media (prefers-contrast: more) {
+  :root:not([data-tema]) a { text-decoration-thickness: 2px; }
+  :root:not([data-tema]) :is(.card, .form, .alerta, .opcao, .filtro, .campo input, .campo select, .campo textarea, .numeros__item, .depoimento, .toast, .modal, .submenu) {
+    border-width: 2px;
+    border-style: solid;
+  }
+  :root:not([data-tema]) .filtro[aria-pressed="true"] { background: var(--cor-destaque); color: #000; }
+}
+
+/* seletor de tema (fica no rodapé) */
+.tema { display: inline-flex; align-items: center; gap: var(--esp-2); }
+.tema select {
+  font: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--raio-p);
+  padding: .3rem .5rem;
+}
+
 /* ---------- 2. BASE ---------- */
 
 body {
@@ -96,7 +265,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 
 :focus-visible {
-  outline: 3px solid var(--cor-destaque);
+  outline: var(--largura-foco) solid var(--cor-destaque);
   outline-offset: 3px;
   border-radius: var(--raio-p);
 }
@@ -106,7 +275,7 @@ a:hover { text-decoration-thickness: 2px; }
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--cor-primaria);
+  background: var(--cor-marca-fundo);
   color: #fff;
   box-shadow: var(--sombra-m);
   /* centraliza o conteúdo sem precisar de um elemento extra */
@@ -171,7 +340,7 @@ main {
 .grade-12 > * { grid-column: span 12; min-width: 0; }
 
 .rodape {
-  background: var(--cor-texto);
+  background: var(--cor-rodape-fundo);
   color: #e6e9f0;
   font-size: var(--texto-p);
   padding: var(--esp-5) max(var(--gutter), (100% - var(--largura-max)) / 2 + var(--gutter));
@@ -191,7 +360,7 @@ main {
   align-items: center;
   gap: var(--esp-2);
   background: var(--cor-destaque);
-  color: var(--cor-texto);
+  color: var(--cor-sobre-destaque);
   font: 700 1rem var(--fonte-texto);
   padding: .85rem 1.5rem;
   border: 0;
@@ -347,7 +516,7 @@ main {
 .missao > .depoimento { margin-top: var(--esp-4); }
 .depoimento {
   margin: 0;
-  background: var(--cor-primaria);
+  background: var(--cor-marca-fundo);
   color: #fff;
   padding: var(--esp-5);
   border-radius: var(--raio-g);
@@ -416,7 +585,7 @@ main {
   margin: var(--esp-4) 0;
 }
 .numeros__item {
-  background: var(--cor-primaria);
+  background: var(--cor-marca-fundo);
   color: #fff;
   border-radius: var(--raio-m);
   padding: var(--esp-4);
@@ -487,13 +656,13 @@ main {
   border-color: var(--cor-primaria);
   box-shadow: 0 0 0 4px rgb(255 201 60 / .6);
 }
-.campo input::placeholder { color: #7a839b; }
+.campo input::placeholder { color: var(--cor-placeholder); }
 
 /* validação feita pelo JavaScript (modules/validacao.js):
    o JS coloca .campo--invalido ou .campo--valido no campo */
 .campo--invalido input,
 .campo--invalido select,
-.campo--invalido textarea { border-color: var(--cor-erro); background: #fff6f6; }
+.campo--invalido textarea { border-color: var(--cor-erro); background: var(--cor-campo-erro-fundo); }
 .campo--valido input,
 .campo--valido select { border-color: var(--cor-sucesso); }
 .campo__erro { display: none; font-size: var(--texto-p); color: var(--cor-erro); font-weight: 600; }
@@ -560,7 +729,7 @@ main {
 .badge--sucesso { background: var(--cor-sucesso-fundo); color: var(--cor-sucesso); border-color: rgb(30 107 58 / .3); }
 .badge--aviso   { background: var(--cor-aviso-fundo);   color: var(--cor-aviso);   border-color: rgb(232 173 18 / .5); }
 .badge--erro    { background: var(--cor-erro-fundo);    color: var(--cor-erro);    border-color: rgb(164 38 44 / .3); }
-.badge--destaque { background: var(--cor-destaque); color: var(--cor-texto); }
+.badge--destaque { background: var(--cor-destaque); color: var(--cor-sobre-destaque); }
 .badge--sucesso::before, .badge--aviso::before, .badge--erro::before {
   content: "";
   width: .5rem;
@@ -592,7 +761,7 @@ main {
   place-items: center;
   border-radius: 50%;
   font: 700 1rem var(--fonte-titulo);
-  color: #fff;
+  color: var(--cor-sobre-cor);
   background: var(--cor-primaria);
 }
 .alerta__titulo { margin: 0; font-weight: 700; }
@@ -618,7 +787,7 @@ main {
   gap: var(--esp-3);
   padding: var(--esp-3) var(--esp-4);
   border-radius: var(--raio-m);
-  background: var(--cor-texto);
+  background: var(--cor-rodape-fundo);
   color: #fff;
   box-shadow: var(--sombra-g);
   border-left: 6px solid var(--cor-destaque);
@@ -719,7 +888,7 @@ main:focus { outline: none; }
   transition: background var(--transicao), border-color var(--transicao);
 }
 .filtro:hover { border-color: var(--cor-primaria); }
-.filtro[aria-pressed="true"] { background: var(--cor-primaria); border-color: var(--cor-primaria); color: #fff; }
+.filtro[aria-pressed="true"] { background: var(--cor-marca-fundo); border-color: var(--cor-primaria); color: #fff; }
 
 /* lista de voluntários salvos no localStorage */
 .lista-topo { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--esp-3); margin-bottom: var(--esp-4); }
@@ -740,7 +909,7 @@ main:focus { outline: none; }
   top: -4rem;
   z-index: 100;
   background: var(--cor-destaque);
-  color: var(--cor-texto);
+  color: var(--cor-sobre-destaque);
   font-weight: 700;
   padding: var(--esp-2) var(--esp-3);
   border-radius: var(--raio-p);
@@ -776,7 +945,7 @@ main:focus { outline: none; }
     flex-direction: column;
     gap: 0;
     display: none;
-    background: var(--cor-primaria);
+    background: var(--cor-marca-fundo);
     padding: 0 var(--gutter) var(--esp-3);
     box-shadow: var(--sombra-g);
   }
